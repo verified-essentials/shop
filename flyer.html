@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Verified Essentials — Flyer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,400&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-page:   #E7E2D3;
+    --panel:     #17261D;
+    --panel-2:   #1F3226;
+    --card:      #1F3226;
+    --ivory:     #F3EEE1;
+    --ivory-dim: #CFCABB;
+    --gold:      #B8935B;
+    --rose:      #C4796A;
+    --line:      rgba(243,238,225,0.16);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html,body{
+    background:var(--bg-page);
+    font-family:'Work Sans', sans-serif;
+    color:var(--panel);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  body{
+    display:flex;
+    justify-content:center;
+    padding:40px 16px;
+  }
+
+  .flyer{
+    width:100%;
+    max-width:620px;
+    background:var(--panel);
+    color:var(--ivory);
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(23,38,29,0.45);
+    display:flex;
+    flex-direction:column;
+  }
+
+  /* ---------- decorative botanical line art ---------- */
+  .botanical{
+    position:absolute;
+    top:-6%;
+    right:-14%;
+    width:60%;
+    height:auto;
+    opacity:0.8;
+    pointer-events:none;
+  }
+
+  /* ---------- header ---------- */
+  .header{
+    padding:36px 36px 0 36px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    position:relative;
+    z-index:2;
+  }
+
+  .wordmark{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:450;
+    font-size:18px;
+    letter-spacing:0.01em;
+    color:var(--ivory);
+  }
+
+  .wordmark span{
+    display:block;
+    font-family:'Work Sans', sans-serif;
+    font-style:normal;
+    font-weight:400;
+    font-size:9.5px;
+    letter-spacing:0.13em;
+    color:var(--ivory-dim);
+    margin-top:2px;
+  }
+
+  .badge{
+    font-size:11px;
+    color:var(--ivory-dim);
+    text-align:right;
+    line-height:1.5;
+    padding-top:3px;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:44px 36px 0 36px;
+    position:relative;
+    z-index:2;
+  }
+
+  .eyebrow{
+    font-size:13px;
+    color:var(--rose);
+    font-weight:500;
+    margin-bottom:12px;
+  }
+
+  h1{
+    font-family:'Fraunces', serif;
+    font-weight:450;
+    font-size:clamp(28px, 5.4vw, 37px);
+    line-height:1.1;
+    letter-spacing:-0.01em;
+    max-width:11em;
+  }
+
+  .hero p{
+    margin-top:16px;
+    max-width:32em;
+    font-size:14px;
+    line-height:1.6;
+    color:var(--ivory-dim);
+  }
+
+  /* ---------- category grid ---------- */
+  .categories{
+    padding:30px 36px 0 36px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin:30px 36px 0 36px;
+    padding:0;
+    position:relative;
+    z-index:2;
+  }
+
+  .cat-card{
+    background:var(--panel);
+    padding:22px 20px 20px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .cat-card svg{
+    width:26px;
+    height:26px;
+    stroke:var(--gold);
+  }
+
+  .cat-card h3{
+    font-family:'Fraunces', serif;
+    font-weight:450;
+    font-size:16.5px;
+    color:var(--ivory);
+  }
+
+  .cat-card p{
+    font-size:12px;
+    line-height:1.5;
+    color:var(--ivory-dim);
+  }
+
+  .cat-card .from{
+    margin-top:auto;
+    padding-top:8px;
+    font-size:11px;
+    color:var(--gold);
+    font-weight:500;
+  }
+
+  /* ---------- spacer pushes CTA to bottom ---------- */
+  .spacer{ flex:1; min-height:24px; }
+
+  /* ---------- CTA panel ---------- */
+  .cta{
+    background:var(--panel-2);
+    padding:26px 36px 30px 36px;
+    position:relative;
+    z-index:2;
+  }
+
+  .cta-line1{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-size:18px;
+    color:var(--ivory);
+    margin-bottom:14px;
+  }
+
+  .contact-grid{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    font-size:13.5px;
+    color:var(--ivory-dim);
+  }
+
+  .contact-grid strong{
+    color:var(--ivory);
+    font-weight:500;
+  }
+
+  .cta-footer{
+    margin-top:18px;
+    padding-top:14px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:10px;
+    letter-spacing:0.06em;
+    color:var(--ivory-dim);
+  }
+
+  .cta-footer .dot{
+    color:var(--gold);
+    margin:0 6px;
+  }
+
+  @media (max-width:420px){
+    .categories{ grid-template-columns:1fr; margin:24px 24px 0 24px; }
+    .header, .hero, .cta{ padding-left:24px; padding-right:24px; }
+    h1{ font-size:27px; }
+  }
+
+  @media print{
+    body{ padding:0; background:white; }
+    .flyer{ box-shadow:none; max-width:none; width:210mm; min-height:297mm; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="flyer">
+
+    <svg class="botanical" viewBox="0 0 300 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M260 10 C 220 60, 210 120, 230 190 C 245 245, 220 300, 170 345" stroke="#B8935B" stroke-opacity="0.3" stroke-width="1.4"/>
+      <path d="M230 40 C 200 55, 188 78, 195 102" stroke="#B8935B" stroke-opacity="0.3" stroke-width="1.2"/>
+      <path d="M240 90 C 268 100, 282 120, 278 146" stroke="#B8935B" stroke-opacity="0.3" stroke-width="1.2"/>
+      <ellipse cx="196" cy="101" rx="16" ry="9" transform="rotate(-32 196 101)" stroke="#B8935B" stroke-opacity="0.35" stroke-width="1.1"/>
+      <ellipse cx="278" cy="146" rx="16" ry="9" transform="rotate(28 278 146)" stroke="#B8935B" stroke-opacity="0.35" stroke-width="1.1"/>
+    </svg>
+
+    <div class="header">
+      <div class="wordmark">Verified Essentials<span>ARTISTRY · NUTRILITE · HOME</span></div>
+      <div class="badge">Independent<br>Amway Business Owner</div>
+    </div>
+
+    <div class="hero">
+      <div class="eyebrow">Skincare, wellness & everyday essentials</div>
+      <h1>One person to ask, for everything that actually works.</h1>
+      <p>Real formulas, real cost-per-use maths, no guesswork. Browse by category below, or just message me and I'll point you the right way.</p>
+    </div>
+
+    <div class="categories">
+
+      <div class="cat-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M12 3c3 3 5 6 5 9a5 5 0 0 1-10 0c0-3 2-6 5-9Z"/></svg>
+        <h3>Artistry</h3>
+        <p>Clinically substantiated skincare, botanically sourced and matched to your skin.</p>
+        <div class="from">From £28</div>
+      </div>
+
+      <div class="cat-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><rect x="4" y="8" width="16" height="8" rx="4"/><path d="M12 8v8"/></svg>
+        <h3>Nutrilite</h3>
+        <p>Daily multivitamins and everyday nutrition, grown on Amway's own certified farms.</p>
+        <div class="from">From £28</div>
+      </div>
+
+      <div class="cat-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><circle cx="9" cy="9" r="3.4"/><circle cx="16" cy="8" r="2.2"/><circle cx="13" cy="16" r="2.6"/></svg>
+        <h3>Amway Home</h3>
+        <p>Ultra-concentrated cleaning — one bottle outlasts several supermarket ones.</p>
+        <div class="from">From £7</div>
+      </div>
+
+      <div class="cat-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M10 3h4v3h-4z"/><path d="M9 6h6l1 3v10a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V9z"/></svg>
+        <h3>Fragrance</h3>
+        <p>Signature Artistry scents — ask me about current availability.</p>
+        <div class="from">Ask me</div>
+      </div>
+
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="cta">
+      <div class="cta-line1">Not sure where to start?</div>
+      <div class="contact-grid">
+        <div><strong>WhatsApp:</strong> [your number]</div>
+        <div><strong>TikTok:</strong> [@your.handle]</div>
+      </div>
+      <div class="cta-footer">
+        <span>VERIFIED ESSENTIALS <span class="dot">·</span> AMWAY</span>
+        <span>Message me to browse</span>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

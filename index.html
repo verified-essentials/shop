@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Verified Essentials — Skincare, Wellness & Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;1,9..144,400&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-page:   #E7E2D3;
+    --panel:     #17261D;
+    --panel-2:   #1F3226;
+    --card:      #F3EEE1;
+    --ivory:     #F3EEE1;
+    --ivory-dim: #CFCABB;
+    --gold:      #B8935B;
+    --rose:      #C4796A;
+    --text-dark: #1A1A16;
+    --text-dim:  #5C5A4E;
+    --line:      rgba(23,38,29,0.12);
+    --line-dark: rgba(243,238,225,0.16);
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html,body{
+    background:var(--bg-page);
+    font-family:'Work Sans', sans-serif;
+    color:var(--text-dark);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  .wrap{
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 28px;
+  }
+
+  /* ---------- nav ---------- */
+  nav{
+    padding:26px 0;
+  }
+  nav .wrap{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .wordmark{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:450;
+    font-size:18px;
+  }
+  .wordmark span{
+    display:block;
+    font-family:'Work Sans', sans-serif;
+    font-style:normal;
+    font-weight:400;
+    font-size:10px;
+    letter-spacing:0.14em;
+    color:var(--text-dim);
+    margin-top:1px;
+  }
+  .nav-links{
+    display:flex;
+    gap:28px;
+    font-size:13.5px;
+    color:var(--text-dim);
+  }
+  .nav-links a:hover{ color:var(--text-dark); }
+  .nav-cta{
+    background:var(--panel);
+    color:var(--ivory);
+    padding:9px 18px;
+    border-radius:2px;
+    font-size:13px;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    background:var(--panel);
+    color:var(--ivory);
+    padding:80px 0 90px 0;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .botanical{
+    position:absolute;
+    top:-10%;
+    right:-6%;
+    width:38%;
+    opacity:0.9;
+  }
+  .hero .wrap{
+    position:relative;
+    z-index:2;
+  }
+  .eyebrow{
+    font-size:13px;
+    color:var(--rose);
+    font-weight:500;
+    margin-bottom:16px;
+  }
+  .hero h1{
+    font-family:'Fraunces', serif;
+    font-weight:450;
+    font-size:clamp(36px, 5vw, 54px);
+    line-height:1.08;
+    max-width:11em;
+    letter-spacing:-0.01em;
+  }
+  .hero p{
+    margin-top:22px;
+    max-width:34em;
+    font-size:16px;
+    line-height:1.65;
+    color:var(--ivory-dim);
+  }
+  .hero-actions{
+    margin-top:32px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .btn-primary{
+    background:var(--gold);
+    color:var(--panel);
+    padding:13px 24px;
+    border-radius:2px;
+    font-size:14px;
+    font-weight:500;
+  }
+  .btn-ghost{
+    border:1px solid var(--line-dark);
+    padding:12px 24px;
+    border-radius:2px;
+    font-size:14px;
+    color:var(--ivory);
+  }
+
+  /* ---------- section heads ---------- */
+  .section{ padding:70px 0; }
+  .section-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-bottom:38px;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:450;
+    font-size:30px;
+  }
+  .section-head p{
+    max-width:26em;
+    font-size:14px;
+    color:var(--text-dim);
+    line-height:1.55;
+  }
+
+  /* ---------- filter tabs ---------- */
+  .filter-row{
+    display:flex;
+    gap:10px;
+    margin-bottom:30px;
+    flex-wrap:wrap;
+  }
+  .filter-btn{
+    font-family:'Work Sans', sans-serif;
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--text-dim);
+    padding:9px 18px;
+    border-radius:2px;
+    font-size:13px;
+    cursor:pointer;
+    transition:all 0.15s ease;
+  }
+  .filter-btn:hover{
+    border-color:var(--gold);
+    color:var(--text-dark);
+  }
+  .filter-btn.active{
+    background:var(--panel);
+    border-color:var(--panel);
+    color:var(--ivory);
+  }
+  .card.hidden{ display:none; }
+
+  /* ---------- product grid ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .card{
+    background:var(--card);
+    padding:28px 24px 26px 24px;
+    display:flex;
+    flex-direction:column;
+    min-height:230px;
+  }
+  .card .tag{
+    font-size:11px;
+    color:var(--rose);
+    font-weight:500;
+    margin-bottom:10px;
+  }
+  .card h3{
+    font-family:'Fraunces', serif;
+    font-weight:450;
+    font-size:19px;
+    line-height:1.25;
+  }
+  .card .desc{
+    margin-top:10px;
+    font-size:13px;
+    color:var(--text-dim);
+    line-height:1.55;
+    flex:1;
+  }
+  .card .foot{
+    margin-top:18px;
+    padding-top:14px;
+    border-top:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .card .price{
+    font-size:15px;
+    font-weight:500;
+  }
+  .card .ask{
+    font-size:12.5px;
+    color:var(--gold);
+    font-weight:500;
+  }
+
+  /* ---------- philosophy strip ---------- */
+  .strip{
+    background:var(--card);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .strip .wrap{
+    padding:56px 28px;
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:48px;
+    align-items:center;
+  }
+  .strip h2{
+    font-family:'Fraunces', serif;
+    font-weight:450;
+    font-size:27px;
+    line-height:1.2;
+  }
+  .strip-list{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+  .strip-list .row{
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+  }
+  .strip-list svg{
+    flex:none;
+    width:18px;
+    height:18px;
+    margin-top:2px;
+    stroke:var(--gold);
+  }
+  .strip-list .t{ font-size:14px; font-weight:500; }
+  .strip-list .d{ font-size:12.5px; color:var(--text-dim); margin-top:2px; }
+
+  /* ---------- CTA / contact ---------- */
+  .cta-section{
+    background:var(--panel-2);
+    color:var(--ivory);
+  }
+  .cta-section .wrap{
+    padding:70px 28px;
+    text-align:center;
+  }
+  .cta-section h2{
+    font-family:'Fraunces', serif;
+    font-style:italic;
+    font-weight:450;
+    font-size:30px;
+    max-width:14em;
+    margin:0 auto;
+  }
+  .cta-section p{
+    margin-top:16px;
+    color:var(--ivory-dim);
+    font-size:14px;
+    max-width:30em;
+    margin-left:auto;
+    margin-right:auto;
+    line-height:1.6;
+  }
+  .contact-row{
+    margin-top:30px;
+    display:flex;
+    justify-content:center;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .contact-pill{
+    border:1px solid var(--line-dark);
+    padding:11px 20px;
+    border-radius:2px;
+    font-size:13.5px;
+    display:inline-block;
+  }
+  .contact-pill:hover{ border-color:var(--gold); }
+
+  .lead-form{
+    max-width:480px;
+    margin:36px auto 0 auto;
+    text-align:left;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+  .form-row{
+    display:flex;
+    gap:12px;
+  }
+  .lead-form input,
+  .lead-form textarea{
+    background:transparent;
+    border:1px solid var(--line-dark);
+    border-radius:2px;
+    padding:12px 14px;
+    font-family:'Work Sans', sans-serif;
+    font-size:13.5px;
+    color:var(--ivory);
+    width:100%;
+  }
+  .lead-form input::placeholder,
+  .lead-form textarea::placeholder{ color:var(--ivory-dim); }
+  .lead-form textarea{ resize:vertical; }
+  .form-submit{
+    border:none;
+    cursor:pointer;
+    align-self:flex-start;
+  }
+  @media (max-width:480px){
+    .form-row{ flex-direction:column; }
+  }
+
+  footer{
+    padding:28px 0;
+    text-align:center;
+    font-size:11px;
+    letter-spacing:0.05em;
+    color:var(--text-dim);
+  }
+
+  @media (max-width:760px){
+    .grid{ grid-template-columns:1fr 1fr; }
+    .strip .wrap{ grid-template-columns:1fr; }
+  }
+  @media (max-width:520px){
+    .grid{ grid-template-columns:1fr; }
+    .nav-links{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+  <nav>
+    <div class="wrap">
+      <div class="wordmark">Verified Essentials<span>ARTISTRY · NUTRILITE · HOME</span></div>
+      <div class="nav-links">
+        <a href="#range">The range</a>
+        <a href="#philosophy">Philosophy</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <a class="nav-cta" href="#contact">Book consultation</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <svg class="botanical" viewBox="0 0 300 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M260 10 C 220 60, 210 120, 230 190 C 245 245, 220 300, 170 345" stroke="#B8935B" stroke-opacity="0.35" stroke-width="1.4"/>
+      <path d="M230 40 C 200 55, 188 78, 195 102" stroke="#B8935B" stroke-opacity="0.35" stroke-width="1.2"/>
+      <path d="M240 90 C 268 100, 282 120, 278 146" stroke="#B8935B" stroke-opacity="0.35" stroke-width="1.2"/>
+      <path d="M222 150 C 195 160, 180 182, 186 206" stroke="#B8935B" stroke-opacity="0.35" stroke-width="1.2"/>
+      <ellipse cx="196" cy="101" rx="16" ry="9" transform="rotate(-32 196 101)" stroke="#B8935B" stroke-opacity="0.4" stroke-width="1.1"/>
+      <ellipse cx="278" cy="146" rx="16" ry="9" transform="rotate(28 278 146)" stroke="#B8935B" stroke-opacity="0.4" stroke-width="1.1"/>
+      <ellipse cx="186" cy="207" rx="16" ry="9" transform="rotate(-32 186 207)" stroke="#B8935B" stroke-opacity="0.4" stroke-width="1.1"/>
+    </svg>
+    <div class="wrap">
+      <div class="eyebrow">Skincare, wellness & everyday essentials</div>
+      <h1>Products built on what actually works, not what's trending.</h1>
+      <p>From Artistry skincare to Nutrilite everyday nutrition and Amway Home concentrates — everything here is backed by real formulas and real cost-per-use maths, not guesswork. Browse by category, or message me for a personal recommendation.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop via my Amway store</a>
+        <a class="btn-ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="range">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>The range</h2>
+        <p>Browse by category, or message me to check stock, get a personal recommendation, or ask about bundle pricing.</p>
+      </div>
+
+      <div class="filter-row" role="tablist" aria-label="Filter products by category">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="artistry">Artistry</button>
+        <button class="filter-btn" data-filter="nutrilite">Nutrilite</button>
+        <button class="filter-btn" data-filter="home">Amway Home</button>
+      </div>
+
+      <div class="grid" id="product-grid">
+
+        <div class="card" data-category="artistry">
+          <div class="tag">Skin Nutrition</div>
+          <h3>Vitamin C+HA3 Daily Serum</h3>
+          <div class="desc">Brightening daily serum with vitamin C and hyaluronic acid to support an even, radiant look.</div>
+          <div class="foot"><span class="price">£53.45</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        </div>
+
+        <div class="card" data-category="artistry">
+          <div class="tag">Skin Nutrition</div>
+          <h3>Defying Serum</h3>
+          <div class="desc">Targets early visible signs of ageing, helping skin look firmer and more resilient over time.</div>
+          <div class="foot"><span class="price">£76.55</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        </div>
+
+        <div class="card" data-category="artistry">
+          <div class="tag">Skin Nutrition</div>
+          <h3>Correcting Serum</h3>
+          <div class="desc">Concentrated formula that helps visibly correct uneven tone and texture with continued use.</div>
+          <div class="foot"><span class="price">£90.60</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        </div>
+
+        <div class="card" data-category="artistry">
+          <div class="tag">Skin Nutrition · Renewing</div>
+          <h3>Renewing Reactivation Cream</h3>
+          <div class="desc">Regenerative night formula that helps reduce lines and restore a firmer, more even-toned look.</div>
+          <div class="foot"><span class="price">£70.40</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        </div>
+
+        <div class="card" data-category="artistry">
+          <div class="tag">Skin Nutrition · Renewing</div>
+          <h3>Renewing Reactivation Eye Cream</h3>
+          <div class="desc">Smooths the look of lines and puffiness around the eyes, for a brighter, more open-eyed look.</div>
+          <div class="foot"><span class="price">£46.05</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        </div>
+
+        <div class="card" data-category="artistry">
+          <div class="tag">Skin Nutrition</div>
+          <h3>Multi-Defense UV Protect SPF 50+</h3>
+          <div class="desc">Daily broad-spectrum protection with added defence against blue light and environmental stress.</div>
+          <div class="foot"><span class="price">Ask for price</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        </div>
+
+        <div class="card" data-category="artistry">
+          <div class="tag">LongXevity</div>
+          <h3>Toner Essence</h3>
+          <div class="desc">A lightweight essence-toner layer that preps skin for deeper absorption of everything after it.</div>
+          <div class="foot"><span class="price">£110.15</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        </div>
+
+        <div class="card" data-category="artistry">
+          <div class="tag">LongXevity</div>
+          <h3>Eye Cream</h3>
+          <div class="desc">A concentrated eye treatment from Artistry's most advanced anti-ageing collection.</div>
+          <div class="foot"><span class="price">£179.20</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        </div>
+
+        <div class="card" data-category="artistry">
+          <div class="tag">LongXevity</div>
+          <h3>Rich Cream</h3>
+          <div class="desc">The flagship formula in the LongXevity line, for intensive, long-term skin renewal.</div>
+          <div class="foot"><span class="price">£364.25</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        </div>
+
+        <div class="card" data-category="nutrilite">
+          <div class="tag">Nutrilite</div>
+          <h3>Daily Multivitamin</h3>
+          <div class="desc">20 essential vitamins and minerals plus 4 botanicals, in one easy tablet a day — covers the everyday gaps.</div>
+          <div class="foot"><span class="price">£38.50</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        </div>
+
+        <div class="card" data-category="nutrilite">
+          <div class="tag">Nutrilite</div>
+          <h3>Chewable Multivitamin</h3>
+          <div class="desc">The same daily coverage in an easy chewable form — no water or swallowing tablets needed.</div>
+          <div class="foot"><span class="price">£28.60</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        </div>
+
+        <div class="card" data-category="nutrilite">
+          <div class="tag">Nutrilite</div>
+          <h3>Fruits and Vegetables</h3>
+          <div class="desc">Concentrated fruit and vegetable nutrients in tablet form, for days when your plate falls short.</div>
+          <div class="foot"><span class="price">£32.10</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        </div>
+
+        <div class="card" data-category="nutrilite">
+          <div class="tag">Nutrilite</div>
+          <h3>Be Focused</h3>
+          <div class="desc">A lighter formula aimed at everyday mental clarity and concentration.</div>
+          <div class="foot"><span class="price">£28.15</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        </div>
+
+        <div class="card" data-category="home">
+          <div class="tag">Amway Home · SA8</div>
+          <h3>Premium Concentrated Laundry Powder</h3>
+          <div class="desc">Ultra-concentrated formula — a fraction of the volume of shelf detergent for the same number of washes.</div>
+          <div class="foot"><span class="price">£49.65</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        </div>
+
+        <div class="card" data-category="home">
+          <div class="tag">Amway Home · SA8</div>
+          <h3>Liquid Concentrated Laundry Detergent</h3>
+          <div class="desc">Up to 133 washes per bottle — triple-concentrated, so you're paying for detergent, not water and packaging.</div>
+          <div class="foot"><span class="price">£45.15</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        </div>
+
+        <div class="card" data-category="home">
+          <div class="tag">Amway Home</div>
+          <h3>Dish Drops Concentrated Dishwashing Liquid</h3>
+          <div class="desc">A few drops per sink load — one bottle comfortably outlasts a standard supermarket bottle.</div>
+          <div class="foot"><span class="price">£10.60</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        </div>
+
+        <div class="card" data-category="home">
+          <div class="tag">Amway Home · L.O.C.</div>
+          <h3>Multi-Purpose Concentrate</h3>
+          <div class="desc">One concentrate, diluted for glass, kitchen surfaces, or general cleaning — three products in one bottle.</div>
+          <div class="foot"><span class="price">£7.00</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="strip" id="philosophy">
+    <div class="wrap">
+      <h2>Real formulas. Real numbers. No guesswork.</h2>
+      <div class="strip-list">
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M12 3c3 3 5 6 5 9a5 5 0 0 1-10 0c0-3 2-6 5-9Z"/></svg>
+          <div><div class="t">Seed-to-skin traceability</div><div class="d">Botanicals grown on Nutrilite's own certified farms</div></div>
+        </div>
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M9 12.5l2 2 4-4.5"/></svg>
+          <div><div class="t">Clinically substantiated</div><div class="d">Tested formulas, not vague marketing claims</div></div>
+        </div>
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M4 12h16M4 12l5-5M4 12l5 5"/></svg>
+          <div><div class="t">Matched to you</div><div class="d">A free consultation finds the right routine for your skin</div></div>
+        </div>
+        <div class="row">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+          <div><div class="t">Artistry Clean</div><div class="d">Vegan, cruelty-free, and never tested on animals</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" id="contact">
+    <div class="wrap">
+      <h2>Not sure where to start?</h2>
+      <p>Message me for a free skin consultation — I'll help you match the right products to your skin, answer questions on ingredients, and let you know about current bundle offers.</p>
+      <div class="contact-row">
+        <a class="contact-pill" href="https://wa.me/44YOURNUMBER" target="_blank" rel="noopener">WhatsApp: [your number]</a>
+        <a class="contact-pill" href="https://www.tiktok.com/@yourhandle" target="_blank" rel="noopener">TikTok: [@your.handle]</a>
+      </div>
+
+      <form class="lead-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div class="form-row">
+          <input type="text" name="name" placeholder="Your name" required>
+          <input type="text" name="contact" placeholder="Phone or email" required>
+        </div>
+        <textarea name="message" placeholder="What are you interested in? (e.g. hydrating serum, general consultation)" rows="3"></textarea>
+        <button type="submit" class="btn-primary form-submit">Send — no payment info needed</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>AMWAY INDEPENDENT BUSINESS OWNER</footer>
+
+  <script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('#product-grid .card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+        cards.forEach(card => {
+          const show = filter === 'all' || card.dataset.category === filter;
+          card.classList.toggle('hidden', !show);
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
