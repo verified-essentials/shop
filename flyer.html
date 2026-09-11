@@ -197,7 +197,7 @@
   .contact-grid{
     display:flex;
     flex-direction:column;
-    gap:8px;
+    gap:10px;
     font-size:13.5px;
     color:var(--ivory-dim);
   }
@@ -206,6 +206,16 @@
     color:var(--ivory);
     font-weight:500;
   }
+
+  .icon-btn{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 0;
+    color:var(--ivory);
+    font-size:13.5px;
+  }
+  .icon-btn svg{ width:18px; height:18px; stroke:var(--gold); flex:none; }
 
   .cta-footer{
     margin-top:18px;
@@ -296,8 +306,14 @@
     <div class="cta">
       <div class="cta-line1">Not sure where to start?</div>
       <div class="contact-grid">
-        <div><strong>WhatsApp:</strong> [+44 7392633452]</div>
-        <div><strong>TikTok:</strong> [@your.handle]</div>
+        <a class="icon-btn" href="https://wa.me/447392633452" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12a8 8 0 1 1-3.6-6.7"/><path d="M8 9c0 3 2 6 6 7l1.5-1.5"/></svg>
+          <span>WhatsApp</span>
+        </a>
+        <a class="icon-btn" href="https://www.tiktok.com/@linloro0" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4v9.5a3.5 3.5 0 1 1-3-3.46"/><path d="M14 4c.3 2 1.8 3.6 4 4"/></svg>
+          <span>TikTok</span>
+        </a>
       </div>
       <div class="cta-footer">
         <span>VERIFIED ESSENTIALS <span class="dot">·</span> AMWAY</span>
