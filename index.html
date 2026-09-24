@@ -134,6 +134,17 @@
   .conditional{ display:none; }
   .conditional.visible{ display:block; }
 
+  .mini-video{
+    max-width:260px;
+    margin:0 0 18px 0;
+    border:1px solid var(--gold);
+    border-radius:4px;
+    padding:8px;
+    background:var(--panel-2);
+  }
+  .mini-video-wrap{ position:relative; width:100%; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:2px; }
+  .mini-video-wrap iframe{ position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
+
 
   .video-section{ background:var(--panel); padding:60px 0; }
   .video-frame{
@@ -267,10 +278,10 @@
     <div class="wrap">
       <div class="video-frame">
         <div class="video-wrap">
-          <iframe src="https://www.youtube.com/embed/OUk4JYXnmsI" title="Verified Essentials" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe id="hero-video" title="Verified Essentials" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         </div>
       </div>
-      <div class="video-caption">Real formulas, real care — a closer look</div>
+      <div class="video-caption" id="video-caption-text">Skincare · Nutrition · Home — a closer look</div>
     </div>
   </section>
 
@@ -329,6 +340,9 @@
         </div>
 
         <div class="q-block conditional" id="q-skincare">
+          <div class="mini-video">
+            <div class="mini-video-wrap"><iframe class="cat-video" data-id="OUk4JYXnmsI" title="Skincare" allow="autoplay; encrypted-media" playsinline></iframe></div>
+          </div>
           <div class="q-label">What's your main skin concern?</div>
           <div class="q-options">
             <label><input type="checkbox" name="skin_concerns" value="Dryness / dehydration"><span>Dryness / dehydration</span></label>
@@ -340,6 +354,9 @@
         </div>
 
         <div class="q-block conditional" id="q-nutrition">
+          <div class="mini-video">
+            <div class="mini-video-wrap"><iframe class="cat-video" data-id="F_CVSCtPM7E" title="Nutrition" allow="autoplay; encrypted-media" playsinline></iframe></div>
+          </div>
           <div class="q-label">What are you looking to support?</div>
           <div class="q-options">
             <label><input type="checkbox" name="nutrition_concerns" value="Low energy / fatigue"><span>Low energy / fatigue</span></label>
@@ -350,6 +367,9 @@
         </div>
 
         <div class="q-block conditional" id="q-home">
+          <div class="mini-video">
+            <div class="mini-video-wrap"><iframe class="cat-video" data-id="dpuPAd2RBaA" title="Home & cleaning" allow="autoplay; encrypted-media" playsinline></iframe></div>
+          </div>
           <div class="q-label">What matters most for home & cleaning?</div>
           <div class="q-options">
             <label><input type="checkbox" name="home_concerns" value="Cutting cost per wash/use"><span>Cutting cost per wash/use</span></label>
@@ -400,6 +420,26 @@
   </section>
 
   <script>
+    const heroClips = [
+      { id: 'OUk4JYXnmsI', label: 'Skincare · Nutrition · Home — a closer look (Skincare)' },
+      { id: 'F_CVSCtPM7E', label: 'Skincare · Nutrition · Home — a closer look (Nutrition)' },
+      { id: 'dpuPAd2RBaA', label: 'Skincare · Nutrition · Home — a closer look (Home)' }
+    ];
+    let heroIndex = 0;
+    const heroFrame = document.getElementById('hero-video');
+    const heroCaption = document.getElementById('video-caption-text');
+
+    function playHeroClip(i) {
+      const clip = heroClips[i];
+      heroFrame.src = `https://www.youtube.com/embed/${clip.id}?autoplay=1&mute=1&loop=1&playlist=${clip.id}&controls=0&modestbranding=1&rel=0&playsinline=1`;
+      heroCaption.textContent = clip.label;
+    }
+    playHeroClip(heroIndex);
+    setInterval(() => {
+      heroIndex = (heroIndex + 1) % heroClips.length;
+      playHeroClip(heroIndex);
+    }, 4200);
+
     const catInputs = document.querySelectorAll('input[name="category"]');
     const conditionals = document.querySelectorAll('.conditional');
 
@@ -407,7 +447,14 @@
       input.addEventListener('change', () => {
         conditionals.forEach(block => block.classList.remove('visible'));
         const target = document.getElementById(input.dataset.target);
-        if (target) target.classList.add('visible');
+        if (target) {
+          target.classList.add('visible');
+          const vid = target.querySelector('.cat-video');
+          if (vid && !vid.src) {
+            const vidId = vid.dataset.id;
+            vid.src = `https://www.youtube.com/embed/${vidId}?autoplay=1&mute=1&loop=1&playlist=${vidId}&controls=0&modestbranding=1&rel=0&playsinline=1`;
+          }
+        }
       });
     });
   </script>
