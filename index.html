@@ -62,6 +62,47 @@
 
   .section{ padding:70px 0; }
 
+  .match-section{ background:var(--panel); color:var(--ivory); }
+  .match-head{ max-width:34em; }
+  .match-head .eyebrow{ margin-bottom:14px; }
+  .match-head h2{ font-family:'Fraunces', serif; font-weight:450; font-size:28px; line-height:1.2; }
+  .match-head p{ margin-top:14px; font-size:14px; color:var(--ivory-dim); line-height:1.6; }
+
+  .match-form{ margin-top:36px; display:flex; flex-direction:column; gap:26px; max-width:640px; }
+  .q-block .q-label{ font-size:13.5px; font-weight:500; margin-bottom:12px; }
+  .q-options{ display:flex; flex-wrap:wrap; gap:10px; }
+  .q-options label{
+    border:1px solid var(--line-dark);
+    padding:9px 16px;
+    border-radius:2px;
+    font-size:13px;
+    cursor:pointer;
+    color:var(--ivory-dim);
+    transition:all .15s ease;
+  }
+  .q-options input{ display:none; }
+  .q-options input:checked + span{ color:var(--ivory); }
+  .q-options label:has(input:checked){ border-color:var(--gold); background:rgba(184,147,91,0.12); color:var(--ivory); }
+
+  .match-form input[type="text"],
+  .match-form textarea{
+    background:transparent;
+    border:1px solid var(--line-dark);
+    border-radius:2px;
+    padding:12px 14px;
+    font-family:'Work Sans', sans-serif;
+    font-size:13.5px;
+    color:var(--ivory);
+    width:100%;
+  }
+  .match-form input::placeholder,
+  .match-form textarea::placeholder{ color:var(--ivory-dim); }
+  .match-row{ display:flex; gap:12px; }
+  @media (max-width:520px){ .match-row{ flex-direction:column; } }
+
+  .match-note{ font-size:11.5px; color:var(--ivory-dim); line-height:1.5; max-width:480px; }
+
+
   .offers-strip{ background:var(--card); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
   .offers-strip .wrap{ padding:28px; display:grid; grid-template-columns:repeat(3, 1fr); gap:28px; }
   .offer-item{ display:flex; gap:12px; align-items:flex-start; }
@@ -136,11 +177,11 @@
         <div class="wordmark">Verified Essentials<span>ARTISTRY · NUTRILITE · HOME</span></div>
       </div>
       <div class="nav-links">
-        <a href="#range">The range</a>
+        <a href="#match">Find my match</a>
         <a href="#philosophy">Philosophy</a>
         <a href="#contact">Contact</a>
       </div>
-      <a class="nav-cta" href="#contact">Book consultation</a>
+      <a class="nav-cta" href="#match">Find my match</a>
     </div>
   </nav>
 
@@ -159,8 +200,8 @@
       <h1>Products built on what actually works, not what's trending.</h1>
       <p>From Artistry skincare to Nutrilite everyday nutrition and Amway Home concentrates — everything here is backed by real formulas and real cost-per-use maths, not guesswork. Browse by category, or message me for a personal recommendation.</p>
       <div class="hero-actions">
-        <a class="btn-primary" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop via my Amway store</a>
-        <a class="btn-ghost" href="#contact">Get in touch</a>
+        <a class="btn-primary" href="#match">Find my match</a>
+        <a class="btn-ghost" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop directly on my Amway store</a>
       </div>
     </div>
   </section>
@@ -182,142 +223,64 @@
     </div>
   </section>
 
-  <section class="section" id="range">
+  <section class="section match-section" id="match">
     <div class="wrap">
-      <div class="section-head">
-        <h2>The range</h2>
-        <p>Browse by category, or message me to check stock, get a personal recommendation, or ask about bundle pricing.</p>
+      <div class="match-head">
+        <div class="eyebrow">Not sure where to start?</div>
+        <h2>Tell me what you're after — I'll match you to the right products.</h2>
+        <p>A few quick questions, no prices, no pressure. I'll personally look over your answers, with a licensed professional on our team available for tailored guidance, and get back to you with a recommendation.</p>
       </div>
 
-      <div class="filter-row" role="tablist" aria-label="Filter products by category">
-        <button class="filter-btn active" data-filter="all">All</button>
-        <button class="filter-btn" data-filter="artistry">Artistry</button>
-        <button class="filter-btn" data-filter="nutrilite">Nutrilite</button>
-        <button class="filter-btn" data-filter="home">Amway Home</button>
-      </div>
+      <form class="match-form" action="https://formspree.io/f/xbgjbqly" method="POST">
+        <input type="hidden" name="_subject" value="New product match request — Verified Essentials">
 
-      <div class="grid" id="product-grid">
-
-        <div class="card" data-category="artistry">
-          <div class="tag">Skin Nutrition</div>
-          <h3>Vitamin C+HA3 Daily Serum</h3>
-          <div class="desc">Brightening daily serum with vitamin C and hyaluronic acid to support an even, radiant look.</div>
-          <div class="foot"><span class="price">£53.45</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        <div class="q-block">
+          <div class="q-label">What are you mainly interested in?</div>
+          <div class="q-options">
+            <label><input type="radio" name="category" value="Skincare"><span>Skincare</span></label>
+            <label><input type="radio" name="category" value="Everyday nutrition"><span>Everyday nutrition</span></label>
+            <label><input type="radio" name="category" value="Home & cleaning"><span>Home & cleaning</span></label>
+            <label><input type="radio" name="category" value="Not sure yet"><span>Not sure yet</span></label>
+          </div>
         </div>
 
-        <div class="card" data-category="artistry">
-          <div class="tag">Skin Nutrition</div>
-          <h3>Defying Serum</h3>
-          <div class="desc">Targets early visible signs of ageing, helping skin look firmer and more resilient over time.</div>
-          <div class="foot"><span class="price">£76.55</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        <div class="q-block">
+          <div class="q-label">What matters most to you? (pick any that fit)</div>
+          <div class="q-options">
+            <label><input type="checkbox" name="goals" value="Hydration"><span>Hydration</span></label>
+            <label><input type="checkbox" name="goals" value="Anti-ageing"><span>Anti-ageing</span></label>
+            <label><input type="checkbox" name="goals" value="Brightening / even tone"><span>Brightening / even tone</span></label>
+            <label><input type="checkbox" name="goals" value="Everyday energy"><span>Everyday energy</span></label>
+            <label><input type="checkbox" name="goals" value="Immune support"><span>Immune support</span></label>
+            <label><input type="checkbox" name="goals" value="Focus & clarity"><span>Focus & clarity</span></label>
+            <label><input type="checkbox" name="goals" value="Cost-effectiveness"><span>Cost-effectiveness</span></label>
+          </div>
         </div>
 
-        <div class="card" data-category="artistry">
-          <div class="tag">Skin Nutrition</div>
-          <h3>Correcting Serum</h3>
-          <div class="desc">Concentrated formula that helps visibly correct uneven tone and texture with continued use.</div>
-          <div class="foot"><span class="price">£90.60</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        <div class="q-block">
+          <div class="q-label">Anything else worth knowing? (optional)</div>
+          <textarea name="notes" placeholder="e.g. sensitive skin, prefer fragrance-free, budget in mind..." rows="3"></textarea>
         </div>
 
-        <div class="card" data-category="artistry">
-          <div class="tag">Skin Nutrition · Renewing</div>
-          <h3>Renewing Reactivation Cream</h3>
-          <div class="desc">Regenerative night formula that helps reduce lines and restore a firmer, more even-toned look.</div>
-          <div class="foot"><span class="price">£70.40</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
+        <div class="q-block">
+          <div class="q-label">Where should I send your recommendation?</div>
+          <div class="match-row">
+            <input type="text" name="name" placeholder="Your name" required>
+            <input type="text" name="contact" placeholder="Phone or email" required>
+          </div>
         </div>
 
-        <div class="card" data-category="artistry">
-          <div class="tag">Skin Nutrition · Renewing</div>
-          <h3>Renewing Reactivation Eye Cream</h3>
-          <div class="desc">Smooths the look of lines and puffiness around the eyes, for a brighter, more open-eyed look.</div>
-          <div class="foot"><span class="price">£46.05</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
-        </div>
+        <button type="submit" class="btn-primary form-submit" style="align-self:flex-start;">Get my recommendation</button>
 
-        <div class="card" data-category="artistry">
-          <div class="tag">Skin Nutrition</div>
-          <h3>Multi-Defense UV Protect SPF 50+</h3>
-          <div class="desc">Daily broad-spectrum protection with added defence against blue light and environmental stress.</div>
-          <div class="foot"><span class="price">Ask for price</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
-        </div>
+        <div class="match-note">This helps us understand your goals so we can suggest the right products — it isn't a diagnosis or a substitute for seeing your GP about any health condition. Your answers are only used to personally match you to a product and aren't shared or sold on.</div>
+      </form>
+    </div>
+  </section>
 
-        <div class="card" data-category="artistry">
-          <div class="tag">LongXevity</div>
-          <h3>Toner Essence</h3>
-          <div class="desc">A lightweight essence-toner layer that preps skin for deeper absorption of everything after it.</div>
-          <div class="foot"><span class="price">£110.15</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
-        </div>
-
-        <div class="card" data-category="artistry">
-          <div class="tag">LongXevity</div>
-          <h3>Eye Cream</h3>
-          <div class="desc">A concentrated eye treatment from Artistry's most advanced anti-ageing collection.</div>
-          <div class="foot"><span class="price">£179.20</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
-        </div>
-
-        <div class="card" data-category="artistry">
-          <div class="tag">LongXevity</div>
-          <h3>Rich Cream</h3>
-          <div class="desc">The flagship formula in the LongXevity line, for intensive, long-term skin renewal.</div>
-          <div class="foot"><span class="price">£364.25</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
-        </div>
-
-        <div class="card" data-category="nutrilite">
-          <div class="tag">Nutrilite</div>
-          <h3>Daily Multivitamin</h3>
-          <div class="desc">20 essential vitamins and minerals plus 4 botanicals, in one easy tablet a day — covers the everyday gaps.</div>
-          <div class="foot"><span class="price">£38.50</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
-        </div>
-
-        <div class="card" data-category="nutrilite">
-          <div class="tag">Nutrilite</div>
-          <h3>Chewable Multivitamin</h3>
-          <div class="desc">The same daily coverage in an easy chewable form — no water or swallowing tablets needed.</div>
-          <div class="foot"><span class="price">£28.60</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
-        </div>
-
-        <div class="card" data-category="nutrilite">
-          <div class="tag">Nutrilite</div>
-          <h3>Fruits and Vegetables</h3>
-          <div class="desc">Concentrated fruit and vegetable nutrients in tablet form, for days when your plate falls short.</div>
-          <div class="foot"><span class="price">£32.10</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
-        </div>
-
-        <div class="card" data-category="nutrilite">
-          <div class="tag">Nutrilite</div>
-          <h3>Be Focused</h3>
-          <div class="desc">A lighter formula aimed at everyday mental clarity and concentration.</div>
-          <div class="foot"><span class="price">£28.15</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
-        </div>
-
-        <div class="card" data-category="home">
-          <div class="tag">Amway Home · SA8</div>
-          <h3>Premium Concentrated Laundry Powder</h3>
-          <div class="desc">Ultra-concentrated formula — a fraction of the volume of shelf detergent for the same number of washes.</div>
-          <div class="foot"><span class="price">£49.65</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
-        </div>
-
-        <div class="card" data-category="home">
-          <div class="tag">Amway Home · SA8</div>
-          <h3>Liquid Concentrated Laundry Detergent</h3>
-          <div class="desc">Up to 133 washes per bottle — triple-concentrated, so you're paying for detergent, not water and packaging.</div>
-          <div class="foot"><span class="price">£45.15</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
-        </div>
-
-        <div class="card" data-category="home">
-          <div class="tag">Amway Home</div>
-          <h3>Dish Drops Concentrated Dishwashing Liquid</h3>
-          <div class="desc">A few drops per sink load — one bottle comfortably outlasts a standard supermarket bottle.</div>
-          <div class="foot"><span class="price">£10.60</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
-        </div>
-
-        <div class="card" data-category="home">
-          <div class="tag">Amway Home · L.O.C.</div>
-          <h3>Multi-Purpose Concentrate</h3>
-          <div class="desc">One concentrate, diluted for glass, kitchen surfaces, or general cleaning — three products in one bottle.</div>
-          <div class="foot"><span class="price">£7.00</span><a class="ask" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop →</a></div>
-        </div>
-
-      </div>
+  <section class="section" style="padding:50px 0;">
+    <div class="wrap" style="text-align:center;">
+      <p style="font-size:13.5px;color:var(--text-dim);">Prefer to browse everything yourself in the meantime?</p>
+      <a class="btn-ghost" style="display:inline-block;margin-top:14px;border-color:var(--line);color:var(--text-dark);" href="https://www.amway.co.uk/" target="_blank" rel="noopener">Shop directly on my Amway store</a>
     </div>
   </section>
 
@@ -372,24 +335,6 @@
   </section>
 
   <footer>AMWAY INDEPENDENT BUSINESS OWNER</footer>
-
-  <script>
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const cards = document.querySelectorAll('#product-grid .card');
-
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const filter = btn.dataset.filter;
-        cards.forEach(card => {
-          const show = filter === 'all' || card.dataset.category === filter;
-          card.classList.toggle('hidden', !show);
-        });
-      });
-    });
-  </script>
 
 </body>
 </html>
