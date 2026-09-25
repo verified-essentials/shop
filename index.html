@@ -142,8 +142,8 @@
     padding:8px;
     background:var(--panel-2);
   }
-  .mini-video-wrap{ position:relative; width:100%; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:2px; }
-  .mini-video-wrap iframe{ position:absolute; top:0; left:0; width:100%; height:100%; border:0; }
+  .mini-video-wrap{ position:relative; width:100%; padding-bottom:56.25%; height:0; overflow:hidden; border-radius:2px; background:#000; }
+  .mini-video-wrap video{ position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; border:0; }
 
 
   .video-section{ background:var(--panel); padding:60px 0; }
@@ -162,13 +162,18 @@
     height:0;
     overflow:hidden;
     border-radius:2px;
+    background:#000;
   }
-  .video-wrap iframe{
+  .video-wrap video{
     position:absolute;
     top:0; left:0;
     width:100%; height:100%;
+    object-fit:cover;
     border:0;
+    opacity:0;
+    transition:opacity .6s ease;
   }
+  .video-wrap video.active{ opacity:1; }
   .video-caption{ text-align:center; margin-top:16px; font-size:13px; color:var(--ivory-dim); }
 
   .offers-strip{ background:var(--card); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
@@ -277,8 +282,10 @@
   <section class="video-section">
     <div class="wrap">
       <div class="video-frame">
-        <div class="video-wrap">
-          <iframe id="hero-video" title="Verified Essentials" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <div class="video-wrap" id="hero-video-wrap">
+          <video class="hero-clip active" data-label="Skincare · Nutrition · Home — a closer look (Skincare)" src="skincare.mp4" muted playsinline preload="auto"></video>
+          <video class="hero-clip" data-label="Skincare · Nutrition · Home — a closer look (Nutrition)" src="nutrition.mp4" muted playsinline preload="auto"></video>
+          <video class="hero-clip" data-label="Skincare · Nutrition · Home — a closer look (Home)" src="home.mp4" muted playsinline preload="auto"></video>
         </div>
       </div>
       <div class="video-caption" id="video-caption-text">Skincare · Nutrition · Home — a closer look</div>
@@ -341,7 +348,7 @@
 
         <div class="q-block conditional" id="q-skincare">
           <div class="mini-video">
-            <div class="mini-video-wrap"><iframe class="cat-video" data-id="OUk4JYXnmsI" title="Skincare" allow="autoplay; encrypted-media" playsinline></iframe></div>
+            <div class="mini-video-wrap"><video class="cat-video" src="skincare.mp4" muted playsinline autoplay loop preload="none"></video></div>
           </div>
           <div class="q-label">What's your main skin concern?</div>
           <div class="q-options">
@@ -355,7 +362,7 @@
 
         <div class="q-block conditional" id="q-nutrition">
           <div class="mini-video">
-            <div class="mini-video-wrap"><iframe class="cat-video" data-id="F_CVSCtPM7E" title="Nutrition" allow="autoplay; encrypted-media" playsinline></iframe></div>
+            <div class="mini-video-wrap"><video class="cat-video" src="nutrition.mp4" muted playsinline autoplay loop preload="none"></video></div>
           </div>
           <div class="q-label">What are you looking to support?</div>
           <div class="q-options">
@@ -368,7 +375,7 @@
 
         <div class="q-block conditional" id="q-home">
           <div class="mini-video">
-            <div class="mini-video-wrap"><iframe class="cat-video" data-id="dpuPAd2RBaA" title="Home & cleaning" allow="autoplay; encrypted-media" playsinline></iframe></div>
+            <div class="mini-video-wrap"><video class="cat-video" src="home.mp4" muted playsinline autoplay loop preload="none"></video></div>
           </div>
           <div class="q-label">What matters most for home & cleaning?</div>
           <div class="q-options">
@@ -420,39 +427,58 @@
   </section>
 
   <script>
-    const heroClips = [
-      { id: 'OUk4JYXnmsI', label: 'Skincare · Nutrition · Home — a closer look (Skincare)' },
-      { id: 'F_CVSCtPM7E', label: 'Skincare · Nutrition · Home — a closer look (Nutrition)' },
-      { id: 'dpuPAd2RBaA', label: 'Skincare · Nutrition · Home — a closer look (Home)' }
-    ];
-    let heroIndex = 0;
-    const heroFrame = document.getElementById('hero-video');
+    // ---------- rotating hero video (self-hosted, crossfade — no reload/buffer lag) ----------
+    const heroClipsEls = Array.from(document.querySelectorAll('.hero-clip'));
     const heroCaption = document.getElementById('video-caption-text');
+    let heroIndex = 0;
 
-    function playHeroClip(i) {
-      const clip = heroClips[i];
-      heroFrame.src = `https://www.youtube.com/embed/${clip.id}?autoplay=1&mute=1&loop=1&playlist=${clip.id}&controls=0&modestbranding=1&rel=0&playsinline=1`;
-      heroCaption.textContent = clip.label;
+    function showHeroClip(i) {
+      heroClipsEls.forEach((v, idx) => {
+        if (idx === i) {
+          v.classList.add('active');
+          v.currentTime = 0;
+          const p = v.play();
+          if (p) p.catch(() => {});
+        } else {
+          v.classList.remove('active');
+          v.pause();
+        }
+      });
+      heroCaption.textContent = heroClipsEls[i].dataset.label;
     }
-    playHeroClip(heroIndex);
-    setInterval(() => {
-      heroIndex = (heroIndex + 1) % heroClips.length;
-      playHeroClip(heroIndex);
-    }, 4200);
 
+    if (heroClipsEls.length) {
+      showHeroClip(heroIndex);
+      // advance a touch after each clip's natural end (~4s clips) rather than a
+      // fixed timer racing the video, so the swap only happens once playback is done
+      heroClipsEls[heroIndex].addEventListener('ended', advanceHero);
+      function advanceHero() {
+        heroClipsEls[heroIndex].removeEventListener('ended', advanceHero);
+        heroIndex = (heroIndex + 1) % heroClipsEls.length;
+        showHeroClip(heroIndex);
+        heroClipsEls[heroIndex].addEventListener('ended', advanceHero);
+      }
+    }
+
+    // ---------- category picker: reveal matching question block ----------
     const catInputs = document.querySelectorAll('input[name="category"]');
     const conditionals = document.querySelectorAll('.conditional');
 
     catInputs.forEach(input => {
       input.addEventListener('change', () => {
-        conditionals.forEach(block => block.classList.remove('visible'));
+        conditionals.forEach(block => {
+          block.classList.remove('visible');
+          const v = block.querySelector('.cat-video');
+          if (v) v.pause();
+        });
         const target = document.getElementById(input.dataset.target);
         if (target) {
           target.classList.add('visible');
           const vid = target.querySelector('.cat-video');
-          if (vid && !vid.src) {
-            const vidId = vid.dataset.id;
-            vid.src = `https://www.youtube.com/embed/${vidId}?autoplay=1&mute=1&loop=1&playlist=${vidId}&controls=0&modestbranding=1&rel=0&playsinline=1`;
+          if (vid) {
+            vid.currentTime = 0;
+            const p = vid.play();
+            if (p) p.catch(() => {});
           }
         }
       });
@@ -498,7 +524,7 @@
         </a>
       </div>
 
-      <form class="lead-form" action="https://formspree.io/f/xdeojpqy" method="POST">
+      <form class="lead-form" action="https://formspree.io/f/xbgjbqly" method="POST">
         <div class="form-row">
           <input type="text" name="name" placeholder="Your name" required>
           <input type="text" name="contact" placeholder="Phone or email" required>
